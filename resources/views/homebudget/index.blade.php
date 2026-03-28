@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>家計簿アプリ</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ filemtime(public_path('css/style.css')) }}">
-​
+    ​
 </head>
+
 <body>
     <header>
         <h1>家計簿アプリ</h1>
     </header>
-​
+    ​
     <section class="container">
         <div class="balance">
             <h3>支出一覧</h3>
             @if(session('flash_message'))
-                <div class="flash_message">
-                    {{ session('flash_message') }}
-                </div>
+            <div class="flash_message">
+                {{ session('flash_message') }}
+            </div>
             @endif
             @if(session('flash_error_message'))
-                <div class="flash_error_message">
-                    {{ session('flash_error_message') }}
-                </div>
+            <div class="flash_error_message">
+                {{ session('flash_error_message') }}
+            </div>
             @endif
             <table>
                 <thead>
@@ -34,18 +36,22 @@
                 </thead>
                 <tbody>
                     <!-- 支出データのループ処理 -->
-​
+                    ​@foreach($homebudgets as $homebudget)
+                    <td>{{$homebudget->date}}</td>
+                    <td>{{$homebudget->category->name}}</td>
+                    <td>{{$homebudget->price}}</td>
+                    @endforeach
                 </tbody>
             </table>
         </div>
-​
+        ​
         <div class="add-balance">
             <h3>支出の追加</h3>
             <form action="{{ route('store') }}" method="POST">
                 @csrf
                 <label for="date">日付:</label>
                 <input type="date" id="date" name="date">
-​               @if($errors->has('date'))<span class="error">{{$errors->first('date')}}</span> @endif
+                ​ @if($errors->has('date'))<span class="error">{{$errors->first('date')}}</span> @endif
                 <label for="category">カテゴリ:</label>
                 <select name="category" id="category">
                     @foreach($categories as $category)
@@ -61,4 +67,5 @@
         </div>
     </section>
 </body>
+
 </html>

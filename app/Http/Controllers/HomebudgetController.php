@@ -14,7 +14,8 @@ class HomebudgetController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('homebudget.index', compact('categories'));
+        $homebudgets = HomeBudget::with('category')->get();
+        return view('homebudget.index', compact('categories', 'homebudgets'));
     }
 
     /**
