@@ -18,5 +18,6 @@ class CategorySeeder extends Seeder
         Category::create(['name' => '交通費']);
         Category::create(['name' => '水道・光熱費']);
         Category::create(['name' => '通信費']);
+        Category::create(['name' => '収入']);
     }
 }

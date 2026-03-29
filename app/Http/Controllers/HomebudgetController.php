@@ -13,7 +13,9 @@ class HomebudgetController extends Controller
     public function index()
     {
         $homebudgets = HomeBudget::with('category')->orderBy('date', 'desc')->paginate(3);
-        return view('homebudget.index', compact('homebudgets'));
+        $income = HomeBudget::where('category_id', 6)->sum('price');
+        $payment = HomeBudget::where('category_id', '!=', 6)->sum('price');
+        return view('homebudget.index', compact('homebudgets', 'income', 'payment'));
     }
 
     /**
@@ -42,9 +44,9 @@ class HomebudgetController extends Controller
         ]);
 
         if (!empty($result)) {
-            session()->flash('flash_message', '支出を登録しました');
+            session()->flash('flash_message', '収支を登録しました');
         } else {
-            session()->flash('flash_error_message', '支出の登録に失敗しました');
+            session()->flash('flash_error_message', '収支の登録に失敗しました');
         }
 
         return redirect()->route('index');
@@ -85,9 +87,9 @@ class HomebudgetController extends Controller
                 'category_id' => $request->category_id,
                 'price' => $request->price,
             ]);
-            session()->flash('flash_message', '支出を更新しました');
+            session()->flash('flash_message', '収支を更新しました');
         } else {
-            session()->flash('flash_error_message', '支出の更新に失敗しました');
+            session()->flash('flash_error_message', '収支の更新に失敗しました');
         }
 
         return redirect()->route('index');
@@ -100,7 +102,7 @@ class HomebudgetController extends Controller
     {
         $homebudget = HomeBudget::find($id);
         $homebudget->delete();
-        session()->flash('flash_message', '支出を削除しました');
+        session()->flash('flash_message', '収支を削除しました');
         return redirect()->route('index');
     }
 }
