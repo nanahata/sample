@@ -37,12 +37,26 @@
                 <tbody>
                     <!-- 支出データのループ処理 -->
                     ​@foreach($homebudgets as $homebudget)
+                    <tr>
                     <td>{{$homebudget->date}}</td>
                     <td>{{$homebudget->category->name}}</td>
                     <td>{{$homebudget->price}}</td>
+                    <td class="button-td">
+                        <form action="{{ route('homebudget.edit', ['id' => $homebudget->id])}}" method="">
+                            <input type="submit" value="更新" class="edit-button">
+                        </form>
+                        <form action="{{route('homebudget.destroy', ['id'=>$homebudget->id])}}" method="POST">
+                            @csrf
+                            <input type="submit" value="削除" class="delete-button">
+                        </form>
+                    </td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
+            <div class="pagination">
+                {{$homebudgets->links()}}
+            </div>
         </div>
         ​
         <div class="add-balance">
