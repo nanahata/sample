@@ -1,8 +1,5 @@
 # 家計簿（支出管理）アプリ — home-budget
 シンプルな支出の登録・一覧・編集ができる Web アプリです。学習・ポートフォリオ用に Laravel で実装しました。
-## デモ URL
-- **公開 URL:** （ここにデプロイ先 URL を記載）
-- 例: `https://example.com`
 ## 使用技術
 - PHP 8.3+
 - Laravel 13
